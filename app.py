@@ -11,8 +11,8 @@ import pdb
 
 
 def generate_jsonp(callback_function_name, data):
-    data_string = "{'data': True}";
-    jsonped = "<script>" + callback_function_name + "(" + data_string  +  "); </script>"
+    data_string = "{'data': 'test'}";
+    jsonped = "" + callback_function_name + "(" + data_string  +  "); "
     return jsonped
 
 @app.route ("/jsonpme")

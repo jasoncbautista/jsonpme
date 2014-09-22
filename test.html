@@ -4,7 +4,27 @@
 
 <script>
 
-    console.log('hi');
+console.log('hi');
 
+(function($) {
+ var url = 'http://localhost:5000/jsonpme?callback=?&url=hi';
+
+ $.ajax({
+type: 'GET',
+url: url,
+async: false,
+jsonpCallback: 'jsonCallback',
+contentType: "application/json",
+dataType: 'jsonp',
+success: function(json) {
+debugger;
+console.dir(json.sites);
+},
+error: function(e) {
+console.log(e.message);
+}
+});
+
+ })(jQuery);
 
 </script>
