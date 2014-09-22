@@ -4,10 +4,10 @@
 
 <script>
 
-console.log('hi');
 
 (function($) {
- var url = 'http://localhost:5000/jsonpme?callback=?&url=hi';
+ var regular_json_url = "http://localhost:5001/helloworld";
+ var url = 'http://localhost:5000/jsonpme?callback=?&url=' + regular_json_url;
 
  $.ajax({
 type: 'GET',
@@ -17,8 +17,7 @@ jsonpCallback: 'jsonCallback',
 contentType: "application/json",
 dataType: 'jsonp',
 success: function(json) {
-debugger;
-console.dir(json.sites);
+console.dir(json);
 },
 error: function(e) {
 console.log(e.message);

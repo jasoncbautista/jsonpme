@@ -10,8 +10,8 @@ import pdb
 
 
 
-def generate_jsonp(callback_function_name, data):
-    data_string = "{'data': 'test'}";
+def generate_jsonp(callback_function_name, url, data):
+    data_string = "{'data': 'test', 'url': '" + url +"'}";
     jsonped = "" + callback_function_name + "(" + data_string  +  "); "
     return jsonped
 
@@ -19,7 +19,7 @@ def generate_jsonp(callback_function_name, data):
 def jsonpme():
     callback_function = request.args.get("callback")
     url = request.args.get("url")
-    return generate_jsonp(callback_function, "{}")
+    return generate_jsonp(callback_function, url, "{}")
 
 
 @app.route("/helloworld")
