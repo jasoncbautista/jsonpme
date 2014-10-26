@@ -5,10 +5,15 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 
+
+# An extremely simple server. The idea being
+# that for a quick prototype, youc an now get
+# external JSON by routing it through this JSONP
+# passthrough.
+
+
+
 import pdb
-
-
-
 
 def generate_jsonp(callback_function_name, url, data):
     # data_string = jsonify(**{ "data": data, "url": url} )
