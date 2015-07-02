@@ -14,7 +14,6 @@ var server = http.createServer(function(req, res){
     console.log(params);
     console.log('url=', params['url']);
 
-
 });
 
 server.listen(3000, function(){
@@ -23,12 +22,10 @@ server.listen(3000, function(){
 });
 
 
-
 // Learning how to make a simple Request with node:
 
 // Fake a curl: http://stackoverflow.com/questions/21408263/node-js-http-get-request-gets-a-totally-different-set-of-headers-from-a-curl-req
 //
-
 
 
 var host = "yoda.p.mashape.com"
@@ -36,7 +33,6 @@ var path = "/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait
 
 var headers = { 'X-Mashape-Key': 'g4nY5DLOwKmshEIgrtV3YPDWSAjxp1MW52TjsnSYxOwOo3b5gH'
     , 'Accept': 'text/plain'
-    , accept: '*/*'
 }
 
 
