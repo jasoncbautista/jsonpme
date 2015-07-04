@@ -28,38 +28,36 @@ server.listen(3000, function(){
 //
 
 
-var host = "yoda.p.mashape.com"
-var path = "/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait."
+var makeCall( host, path, headers, cb){
+    var host = "yoda.p.mashape.com"
+    var path = "/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait."
 
-var headers = { 'X-Mashape-Key': 'g4nY5DLOwKmshEIgrtV3YPDWSAjxp1MW52TjsnSYxOwOo3b5gH'
-    , 'Accept': 'text/plain'
-}
+    var headers = { 'X-Mashape-Key': 'g4nY5DLOwKmshEIgrtV3YPDWSAjxp1MW52TjsnSYxOwOo3b5gH'
+        , 'Accept': 'text/plain'
+    }
 
-
-
-var options = {
+    var options = {
         host:   host
-    ,   port: 443
-    ,   path:    path
-    ,   headers: headers
-    ,   method : "GET"
-};
+        ,   port: 443
+        ,   path:    path
+        ,   headers: headers
+        ,   method : "GET"
+    };
 
+    var https = require("https");
+    var req = https.get(options, function(res){
+        console.log("Got response: " + res.statusCode);
+        res.on("data", function(chunk) {
+            console.log("BODY: " + chunk);
+        });
 
-var https = require("https");
-var req = https.get(options, function(res){
-    console.log("Got response: " + res.statusCode);
-    res.on("data", function(chunk) {
-        console.log("BODY: " + chunk);
     });
 
-});
+    req.on('error', function(e) {
+        console.log("Got error: " + e.message);
+    });
 
-
-
-req.on('error', function(e) {
-      console.log("Got error: " + e.message);
-});
+};
 
 
 
