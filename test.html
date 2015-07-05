@@ -1,28 +1,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-
-
 <script>
 
 
 (function($) {
- var regular_json_url = "http://localhost:5001/helloworld";
- var url = 'http://localhost:5000/jsonpme?callback=?&url=' + regular_json_url;
+    var regular_json_url = "http://localhost";
+    var jsonPProxy = 'http://localhost:3000/jsonpme?callback=?&port=80&method=GET&host=' + regular_json_url + "&path=/helloworld";
 
- $.ajax({
-type: 'GET',
-url: url,
-async: false,
-jsonpCallback: 'jsonCallback',
-contentType: "application/json",
-dataType: 'jsonp',
-success: function(json) {
-console.dir(json);
-},
-error: function(e) {
-console.log(e.message);
-}
-});
+    $.ajax({
+        type: 'GET',
+        url: jsonPProxy,
+        async: false,
+        jsonpCallback: 'jsonCallback',
+        contentType: "application/json",
+        dataType: 'jsonp',
+        success: function(json) {
+            console.dir(json);
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
 
  })(jQuery);
 
