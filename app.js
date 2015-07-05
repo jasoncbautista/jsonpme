@@ -1,3 +1,4 @@
+var _ = require("underscore");
 var http = require("http");
 var url = require('url') ;
 
@@ -18,17 +19,9 @@ var server = http.createServer(function(req, res){
 
 server.listen(3000, function(){
     console.log("Server running on 3000");
-
 });
 
-
-// Learning how to make a simple Request with node:
-
-// Fake a curl: http://stackoverflow.com/questions/21408263/node-js-http-get-request-gets-a-totally-different-set-of-headers-from-a-curl-req
-//
-
-
-var makeCall( host, path, headers, cb){
+var makeCall= function( /* host, path, headers, */ options,   cb){
     var host = "yoda.p.mashape.com"
     var path = "/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait."
 
@@ -36,21 +29,33 @@ var makeCall( host, path, headers, cb){
         , 'Accept': 'text/plain'
     }
 
-    var options = {
-        host:   host
+    var https = require("https");
+
+    var defaults = {
+            host:   host
         ,   port: 443
         ,   path:    path
         ,   headers: headers
-        ,   method : "GET"
+        ,   method : "GET" // Method
     };
 
-    var https = require("https");
-    var req = https.get(options, function(res){
+
+    var compiledOptions = _.extend(defaults, options);
+
+    // Making the call to our thirdparty REST API:
+    var response = "";
+    var req = https.get(compiledOptions , function(res){
         console.log("Got response: " + res.statusCode);
+
         res.on("data", function(chunk) {
             console.log("BODY: " + chunk);
+            response += chunk;
         });
 
+        res.on('end', function () {
+            console.log('The end');
+            cb(response);
+        });
     });
 
     req.on('error', function(e) {
@@ -60,4 +65,17 @@ var makeCall( host, path, headers, cb){
 };
 
 
+// Simple test
+_.each({"one": 1, "two": 2}, function(value, key){
+    console.log(key, value);
 
+});
+
+
+var options = {
+};
+
+makeCall(options, function(response){
+        console.log('cb fired', response);
+
+});
